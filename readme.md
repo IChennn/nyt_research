@@ -90,7 +90,7 @@ The output file is two text file with the score for each sentence we just proces
 
 
 
-#### Store them as readable output!
+### Store them as readable output!
 
 Now we will rank the results by scores and map them to the sentence they represent.
 
