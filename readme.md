@@ -38,13 +38,13 @@ I just focus on the first two metrics for now.
 
 Firstly, collect data into two folders, which represent past data and present data. For example,  past data from 1987 - 1989 and present data from 2005 - 2007.
 
-#### Extract the full text part only
+### Extract the full text part only
 
 Follow this: https://github.com/notnews/nytimes-corpus-extractor
 
 
 
-#### Read your text file into one csv file filtering by query
+### Read your text file into one csv file filtering by query
 
 Do it for both past data and present data.
 
@@ -62,7 +62,7 @@ $ python recursive.py present/ q_present_afternoon.csv ori_present_afternoon.csv
 
 
 
-#### Compute similarity between each sentence 
+### Compute similarity between each sentence 
 
 ```Shell
 $ python cosine_sim.py <past data> <present data> 
@@ -76,7 +76,7 @@ $ python cosine_sim.py q_past_afternoon.csv q_present_afternoon.csv
 
 As the result, you will get three output files, which will be the input in next step.
 
-#### Process by MRRW
+### Process by MRRW
 
 Reference: https://github.com/yvchen/MRRW
 
