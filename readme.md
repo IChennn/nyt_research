@@ -6,7 +6,7 @@ The code is part of my master research on how to find and recommend interesting 
 
 
 
-##Requirements
+## Requirements
 
 Python 3.5
 
@@ -22,7 +22,7 @@ sklearn
 
 
 
-##Introduction
+## Introduction
 
 The basic idea here is that the content from past documents (e.g. 1900 or 1980 ) will be considered "interesting" if they are:
 
@@ -34,11 +34,11 @@ I just focus on the first two metrics for now.
 
 
 
-##How it works
+## How it works
 
 Firstly, collect data into two folders, which represent past data and present data. For example,  past data from 1987 - 1989 and present data from 2005 - 2007.
 
-####Extract the full text part only
+#### Extract the full text part only
 
 Follow this: https://github.com/notnews/nytimes-corpus-extractor
 
@@ -62,7 +62,7 @@ $ python recursive.py present/ q_present_afternoon.csv ori_present_afternoon.csv
 
 
 
-####Compute similarity between each sentence 
+#### Compute similarity between each sentence 
 
 ```Shell
 $ python cosine_sim.py <past data> <present data> 
