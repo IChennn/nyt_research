@@ -6,6 +6,7 @@ import numpy as np
 
 from nltk.corpus import stopwords 
 from nltk.stem.wordnet import WordNetLemmatizer
+from nltk.tokenize import sent_tokenize
 import string
 
 
@@ -24,7 +25,7 @@ lemma = WordNetLemmatizer()
 
 def clean(input_doc):
     
-    sentence_wise = input_doc.split(".")
+    sentence_wise = sent_tokenize(input_doc)
     
     punc_free = []
     for sen in sentence_wise:
@@ -38,26 +39,26 @@ def clean(input_doc):
     for sen in stop_free:
         nor .append(" ".join(lemma.lemmatize(word) for word in sen.split()))
     
-    length_filter = []
-    for sen in punc_free:
-        if len(sen.split())>=3:
-            length_filter.append(sen)
+    # length_filter = []
+    # for sen in nor:
+    #     if len(sen.split())>=3:
+    #         length_filter.append(sen)
     
-    return length_filter
+    return nor
 
 def clean_for_showing(input_doc):
-    sentence_wise = input_doc.split(".")
+    sentence_wise = sent_tokenize(input_doc)
 
-    punc_free = []
-    for sen in sentence_wise:
-        punc_free.append(''.join(ch for ch in sen.lower() if ch not in exclude))
+    # punc_free = []
+    # for sen in sentence_wise:
+    #     punc_free.append(''.join(ch for ch in sen.lower() if ch not in exclude))
 
-    length_filter = []
-    for sen in punc_free:
-        if len(sen.split())>=3:
-            length_filter.append(sen)
+    # length_filter = []
+    # for sen in sentence_wise:
+    #     if len(sen.split())>=3:
+    #         length_filter.append(sen)
     
-    return length_filter
+    return sentence_wise
 
 #To walk through and read in the file
 
@@ -88,12 +89,13 @@ for root, subdirs, files in os.walk(walk_dir):
     
     print('--\nroot = ' + root)
     # list_file_path = os.path.join(root, 'my-directory-list.csv')
-    list_file_path = os.path.join('/Users/Hung/Documents/', output_file)
-    ori_file_path = os.path.join('/Users/Hung/Documents/', ori_file)
-    print('output_file_path = ' + list_file_path)
+    list_file_path = os.path.join('/Users/Hung/Documents/研究/0122', output_file)
+    ori_file_path = os.path.join('/Users/Hung/Documents/研究/0122', ori_file)
+    #print('output_file_path = ' + list_file_path)
 
     with open(list_file_path, 'w') as list_file:
-        
+        # for subdir in subdirs:
+        #     print('\t- subdirectory ' + subdir)
 
         for filename in files:
             file_path = os.path.join(root, filename)
@@ -103,17 +105,15 @@ for root, subdirs, files in os.walk(walk_dir):
                 with codecs.open(file_path, "r", encoding='utf-8', errors='ignore') as f: 
                     f_content = f.read()
                     if exclude_content not in f_content and query in f_content:
-                        print('\t- file %s (full path: %s)' % (filename, file_path))
-                          
-
+                        
                         tmp = clean(f_content)
                         tmp2 = clean_for_showing(f_content)
-                        for sen in tmp:  
-                            if query in sen:                         
-                                result.append(sen.split())
-                        for sen in tmp2:
-                            if query in sen:
-                                result_origin.append([filename.rstrip(".fulltext.txt")] + sen.split())
+                        
+                        for i in range(len(tmp)):  
+                            if query in tmp[i] and len(tmp2[i].split())>=10:                         
+                                result.append(tmp[i].split())
+                                result_origin.append([filename.rstrip(".fulltext.txt")] + tmp2[i].split())
+                                print('\t- file %s (full path: %s)' % (filename, file_path))
                             
 
         for item in result:
