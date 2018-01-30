@@ -39,24 +39,12 @@ def clean(input_doc):
     for sen in stop_free:
         nor .append(" ".join(lemma.lemmatize(word) for word in sen.split()))
     
-    # length_filter = []
-    # for sen in nor:
-    #     if len(sen.split())>=3:
-    #         length_filter.append(sen)
     
     return nor
 
 def clean_for_showing(input_doc):
+
     sentence_wise = sent_tokenize(input_doc)
-
-    # punc_free = []
-    # for sen in sentence_wise:
-    #     punc_free.append(''.join(ch for ch in sen.lower() if ch not in exclude))
-
-    # length_filter = []
-    # for sen in sentence_wise:
-    #     if len(sen.split())>=3:
-    #         length_filter.append(sen)
     
     return sentence_wise
 
@@ -74,7 +62,7 @@ ori_file = sys.argv[3]
 query = sys.argv[4]
 
 print('walk_dir = ' + walk_dir)
-# print('walk_dir (absolute) = ' + os.path.abspath(walk_dir))
+
 
 exclude_file_list = ['.DS_Store'] 
 exclude_content = "LEAD: *3*** COMPANY REPORTS "
@@ -94,8 +82,7 @@ for root, subdirs, files in os.walk(walk_dir):
     #print('output_file_path = ' + list_file_path)
 
     with open(list_file_path, 'w') as list_file:
-        # for subdir in subdirs:
-        #     print('\t- subdirectory ' + subdir)
+        
 
         for filename in files:
             file_path = os.path.join(root, filename)
